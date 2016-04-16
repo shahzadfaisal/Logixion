@@ -1,0 +1,30 @@
+<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
+<#@ Output Extension="cs" #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using LDSCORE.Domain.Interfaces;
+using LDSCORE.Domain.Model;
+using LDSCORE.WebAPI.Filters;
+using LDSCORE.WebAPI.ApiModel;
+using LDSCORE.Infrastructure.Interfaces;
+using LDSCORE.WebAPI.Mapping;
+
+namespace <#= Model.Namespace #>.Controllers.api
+{ 
+	public class <#= Model.EntityName #>Controller : BaseController<# if(Model.mongo == "true"){ #>Mongo<#}#><Domain.Model.<#= Model.EntityName #>, ApiModel.<#= Model.EntityName #>>
+	{
+		new I<#= Model.EntityName #>Repository repository;
+
+		public <#= Model.EntityName #>Controller(I<#= Model.EntityName #>Repository repository, ILoggingService logger):base(repository,logger)
+		{
+			this.repository = repository;
+
+		}
+
+
+	}
+}

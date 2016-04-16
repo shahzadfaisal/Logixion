@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2C73C2E0-9C63-4A38-B0DA-29452DB00258}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logixion.Scaffolding</RootNamespace>
+    <AssemblyName>Logixion.Scaffolding</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeTemplates\AddController\ApiController.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApiController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddController\ApiControllerWithContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApiControllerWithContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddController\Controller.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Controller.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddController\ControllerWithContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControllerWithContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Create.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Delete.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Details.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Details.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Edit.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Empty.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Empty.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\List.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>List.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\OtherScripts\Template1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Template1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\LDSCOREScaffoldingContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="CodeTemplates\AddController\ApiController.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ApiController.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddController\ApiControllerWithContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ApiControllerWithContext.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddController\Controller.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Controller.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddController\ControllerWithContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ControllerWithContext.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\Create.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Create.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\Delete.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Delete.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\Details.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Details.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\Edit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Edit.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\Empty.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Empty.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\List.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>List.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\Create.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.tt</DependentUpon>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\Create.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Create.cshtml</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\Delete.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.tt</DependentUpon>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\Delete.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Delete.cshtml</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\Details.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Details.tt</DependentUpon>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\Details.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Details.cshtml</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\Edit.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.tt</DependentUpon>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\Edit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Edit.cshtml</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\Empty.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Empty.tt</DependentUpon>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\Empty.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Empty.cshtml</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\List.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>List.tt</DependentUpon>
+    </None>
+    <None Include="CodeTemplates\AddView\CSHTML\List.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>List.cshtml</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\OtherScripts\Script1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Script1.txt</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\OtherScripts\Template1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Template1.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Scaffolders\AdminRepositoryClass\AdminRepositoryClass.ps1" />
+    <None Include="CodeTemplates\Scaffolders\AdminRepositoryClass\RepositoryInterfaceTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\AdminRepositoryClass\RepositoryTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\AppRepositoryClass\AppRepositoryClass.ps1" />
+    <None Include="CodeTemplates\Scaffolders\AppRepositoryClass\RepositoryInterfaceTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\AppRepositoryClass\RepositoryTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\ControllerWithAjaxGrid\AjaxEditorView.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\ControllerWithAjaxGrid\ControllerWithAjaxGrid.ps1" />
+    <None Include="CodeTemplates\Scaffolders\ControllerWithAjaxGrid\ControllerWithContext.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\CoreAdmin\CoreAdmin.ps1" />
+    <None Include="CodeTemplates\Scaffolders\CoreAll\CoreAll.ps1" />
+    <None Include="CodeTemplates\Scaffolders\CoreApp\CoreApp.ps1" />
+    <None Include="CodeTemplates\Scaffolders\CoreRemoveAdmin\CoreRemoveAdmin.ps1" />
+    <None Include="CodeTemplates\Scaffolders\CoreRemoveApp\CoreRemoveApp.ps1" />
+    <None Include="CodeTemplates\Scaffolders\ExtWebApi\ExtWebApi.ps1" />
+    <None Include="CodeTemplates\Scaffolders\ExtWebApi\ExtWebApiModelTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\ExtWebApi\ExtWebApiTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\GenEntityRepository\GenEntityRepository.ps1" />
+    <None Include="CodeTemplates\Scaffolders\GenEntityRepository\GenEntityRepositoryTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\GenEntityRepository\RepositoryTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\MvcScaffolding.Controller\ControllerWithContext.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\MvcScaffolding.Controller\ControllerWithRepository.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Create.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Edit.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\RemoveAdminRepositoryClass\RemoveAdminRepositoryClass.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\RemoveAdminRepositoryClass\RemoveAdminRepositoryClass.ps1" />
+    <None Include="CodeTemplates\Scaffolders\RemoveAppRepositoryClass\RemoveAppRepositoryClass.ps1" />
+    <None Include="CodeTemplates\Scaffolders\RemoveAppRepositoryClass\RemoveAppRepositoryTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\RemoveExtModel\RemoveExtModel.ps1" />
+    <None Include="CodeTemplates\Scaffolders\RemoveExtStore\RemoveExtStore.ps1" />
+    <None Include="CodeTemplates\Scaffolders\RemoveExtSummary\RemoveExtSummary.ps1" />
+    <None Include="CodeTemplates\Scaffolders\RemoveExtWebApi\RemoveExtWebApi.ps1" />
+    <None Include="CodeTemplates\Scaffolders\T4Scaffolding.EFRepository\Repository.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\T4Scaffolding.EFRepository\Repository.ps1" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CodeTemplates\AddView\OtherScripts\Script1.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Script1.tt</DependentUpon>
+    </Content>
+    <Content Include="Output\Demo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,147 @@
+﻿<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
+<#@ Output Extension="cs" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="EnvDTE" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="EnvDTE80" #>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web.Script.Serialization;
+
+using LDSCORE.Domain.Interfaces;
+using LDSCORE.Domain.Model;
+using System.IO;
+<# 
+   var modelType = (CodeType)Model.ModelType; 
+   var modelName = modelType.Name; 
+   var modelNamePlural = Model.ModelTypePluralized;
+  
+   var modelNameLower = modelName.ToLower();
+   var properties = modelType.VisibleMembers().OfType<CodeProperty>();
+   var primaryKeyProperty = modelType.VisibleMembers().OfType<CodeProperty>().Single(x => x.Name == Model.PrimaryKey);
+
+#>
+
+namespace LDSCORE.Infrastructure.Data.Repositories
+{
+    public class <#= Model.EntityName #>Repository : RepositoryBase<<#= Model.EntityName #>>, I<#= Model.EntityName #>Repository
+    {
+
+        public <#= Model.EntityName #>Repository(IRepositoryContext dbContext) : base(dbContext)
+        {
+
+        }      
+
+        public System.Collections.IEnumerable GetPageData(int page, int start, int limit, string filter)
+        {
+            return this.GetFilteredData(filter).Skip(start).Take(limit);
+        }
+
+        public IEnumerable<<#= Model.EntityName #>> GetFilteredData(string filters)
+        {
+            var jss = new JavaScriptSerializer();
+            
+            if (!string.IsNullOrEmpty(filters))
+            {
+              
+            }
+
+            var objList = this.GetAll();
+            if (!string.IsNullOrEmpty(filters))
+            {
+                
+            }
+            return objList;
+        }
+<# string str = "";
+str += "\r\n		IDbSet<" + modelName + "> " + Model.ModelTypePluralized + " { get; set; }";
+AppendDataInFile(str, "Infrastructure\\LDSCORE.Infrastructure.Data\\Repositories\\IRepositoryContext.cs", "// Add IDbSet //");
+#>
+
+<# str = "";
+str += "\r\n		public IDbSet<Domain.Model." + modelName + "> " + Model.ModelTypePluralized + " { get; set; }";
+AppendDataInFile(str, "Infrastructure\\LDSCORE.Infrastructure.Data\\Repositories\\DefaultRepositoryContext.cs", "// Add IDbSet Below //");
+#>
+
+<# str = "";
+str += "\r\n			Bind<I" + modelName + "Repository>().To<" + modelName + "Repository>();";
+AppendDataInFile(str, "Infrastructure\\LDSCORE.Infrastructure.DependecyResolution\\RepositoryModule.cs", "// Add Binding Here //");
+#>
+
+<# str = "";
+str += "\r\n	public class Fake" + modelName + "Set : FakeDbSet<" + modelName + ">\r\n";
+str += "	{\r\n";
+str += 	"		public override " + modelName + " Find(params object[] keyValues)\r\n";
+str += "		{\r\n";
+str += "			return this.SingleOrDefault(d => d." + primaryKeyProperty.Name + " == (int)keyValues.Single());\r\n";
+str += "		}\r\n";
+str += "	}";
+AppendDataInFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add FakeProductSet Code Here //");
+#>
+
+<# str = "";
+str += "\r\n			this." + modelNamePlural + " = new Fake" + modelName + "Set();";
+AppendDataInFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add Constructor Code Here //");
+#>
+
+<# str = "";
+str += "\r\n		public IDbSet<Domain.Model." + modelName + "> " + modelNamePlural + " { get; set; }";
+AppendDataInFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add IDbSet Code Here //");
+#>
+
+<# str = "";
+str += "\r\n			if (typeof(TEntity).Equals(typeof(" + modelName + ")))\r\n";
+str += "			{\r\n";
+str += "				return (IDbSet<TEntity>)this." + modelNamePlural + ";\r\n";
+str += "			}";
+AppendDataInFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add IDbSet TEntity Code Here //");
+#>
+	}
+}
+<#+ 
+
+private  void AppendDataInFile(string text, string fileName, string insertionPositionText)
+{
+	fileName=Model.FileLoc+"\\"+fileName;
+	if(File.Exists(fileName))
+    {
+	
+		string allText = File.ReadAllText(fileName);
+
+		if (!allText.Contains(text))
+		{
+			int start = allText.IndexOf(insertionPositionText);
+			if(start != -1)
+            {
+				allText = allText.Insert(start + insertionPositionText.Length, text);
+				File.WriteAllText(fileName, allText);
+            }
+		}
+    }
+}
+
+    public bool IsTopNav(EnvDTE.CodeProperty propInfo){
+        var attributes = propInfo.Attributes.OfType<CodeAttribute2>();
+        if(attributes == null){ return false;}
+        var me = attributes.FirstOrDefault(x => x.Name == "UIHintAttribute");
+        if(me == null){ return false;}
+        if(me.Value == "\"TopNav\"") {
+            return true;
+        } 
+        return false;
+    }
+
+ #>

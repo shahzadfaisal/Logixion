@@ -1,0 +1,54 @@
+<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
+<#@ Output extension="cshtml" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="EnvDTE" #>
+<# 
+    var viewDataType = (CodeType)Model.ViewDataType; 
+    var properties = viewDataType.VisibleMembers().OfType<CodeProperty>();
+#>
+@model IEnumerable<<#= viewDataType.FullName #>>
+
+@{
+    ViewBag.Title = "<#= Model.ViewName #>";
+}
+
+<h2><#= Model.ViewName #></h2>
+
+<table id="ajaxGrid"></table>
+<div id="ajaxGridPager"></div>
+
+<script type="text/javascript">
+    jQuery("#ajaxGrid").jqGrid({
+        url: '@Url.Action("GridData")',
+        datatype: "json",
+        jsonReader: { repeatitems: false, id: "<#= Model.PrimaryKeyName #>" },
+        colNames: [<#= string.Join(", ", properties.Select(prop => "'" + prop.Name + "'")) #>],
+        colModel: [
+            <#= string.Join(", \r\n			", properties.Select(prop =>
+                string.Format("{{ name: '{0}', editable: true, sortable: false, hidden: {1} }}", prop.Name, prop.Name == Model.PrimaryKeyName ? "true" : "false")
+            )) #>
+        ],
+        rowNum: 5,
+        pager: '#ajaxGridPager',
+        width: '850',
+        height: '15em'
+    });
+
+    jQuery("#ajaxGrid").jqGrid('navGrid', '#ajaxGridPager',
+        { search: false, refresh: false },					   // General options
+        { url: '@Url.Action("Edit")', closeAfterEdit: true },  // Edit options
+        { url: '@Url.Action("Create")', closeAfterAdd: true }, // Add options
+        { url: '@Url.Action("Delete")' }					   // Delete options                           
+    );    
+</script>

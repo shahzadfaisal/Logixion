@@ -1,0 +1,155 @@
+<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
+<#@ Output Extension="cs" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="EnvDTE" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="EnvDTE80" #>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web.Script.Serialization;
+
+using LDSCORE.Domain.Interfaces;
+using LDSCORE.Domain.Model;
+using System.IO;
+<# 
+   var modelType = (CodeType)Model.ModelType; 
+   var modelName = modelType.Name; 
+   var modelNamePlural = Model.ModelTypePluralized;
+  
+   var modelNameLower = modelName.ToLower();
+   var properties = modelType.VisibleMembers().OfType<CodeProperty>();
+   var primaryKeyProperty = modelType.VisibleMembers().OfType<CodeProperty>().Single(x => x.Name == Model.PrimaryKey);
+
+#>
+
+namespace LDSCORE.Infrastructure.Data.Repositories
+{
+    public class <#= Model.EntityName #>Repository : RepositoryBase<<#= Model.EntityName #>>, I<#= Model.EntityName #>Repository
+    {
+
+        public <#= Model.EntityName #>Repository(IRepositoryContext dbContext) : base(dbContext)
+        {
+
+        }      
+
+        public System.Collections.IEnumerable GetPageData(int page, int start, int limit, string filter)
+        {
+            return this.GetFilteredData(filter).Skip(start).Take(limit);
+        }
+
+        public IEnumerable<<#= Model.EntityName #>> GetFilteredData(string filters)
+        {
+            var jss = new JavaScriptSerializer();
+            
+            if (!string.IsNullOrEmpty(filters))
+            {
+              
+            }
+
+            var objList = this.GetAll();
+            if (!string.IsNullOrEmpty(filters))
+            {
+                
+            }
+            return objList;
+        }
+<# string str = "";
+str += "\r\n		IDbSet<" + modelName + "> " + Model.ModelTypePluralized + " { get; set; }";
+RemoveDataFromFile(str, "Infrastructure\\LDSCORE.Infrastructure.Data\\Repositories\\IRepositoryContext.cs", "// Add IDbSet //");
+#>
+
+<# str = "";
+str += "\r\n		public IDbSet<Domain.Model." + modelName + "> " + Model.ModelTypePluralized + " { get; set; }";
+RemoveDataFromFile(str, "Infrastructure\\LDSCORE.Infrastructure.Data\\Repositories\\DefaultRepositoryContext.cs", "// Add IDbSet Below //");
+#>
+
+<# str = "";
+str += "\r\n			Bind<I" + modelName + "Repository>().To<" + modelName + "Repository>();";
+RemoveDataFromFile(str, "Infrastructure\\LDSCORE.Infrastructure.DependecyResolution\\RepositoryModule.cs", "// Add Binding Here //");
+#>
+
+<# str = "";
+str += "\r\n	public class Fake" + modelName + "Set : FakeDbSet<" + modelName + ">\r\n";
+str += "	{\r\n";
+str += 	"		public override " + modelName + " Find(params object[] keyValues)\r\n";
+str += "		{\r\n";
+str += "			return this.SingleOrDefault(d => d." + primaryKeyProperty.Name + " == (int)keyValues.Single());\r\n";
+str += "		}\r\n";
+str += "	}";
+RemoveDataFromFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add FakeProductSet Code Here //");
+#>
+
+<# str = "";
+str += "\r\n			this." + modelNamePlural + " = new Fake" + modelName + "Set();";
+RemoveDataFromFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add Constructor Code Here //");
+#>
+
+<# str = "";
+str += "\r\n		public IDbSet<Domain.Model." + modelName + "> " + modelNamePlural + " { get; set; }";
+RemoveDataFromFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add IDbSet Code Here //");
+#>
+
+<# str = "";
+str += "\r\n			if (typeof(TEntity).Equals(typeof(" + modelName + ")))\r\n";
+str += "			{\r\n";
+str += "				return (IDbSet<TEntity>)this." + modelNamePlural + ";\r\n";
+str += "			}";
+RemoveDataFromFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add IDbSet TEntity Code Here //");
+#>
+
+<# str = "";
+str += "\r\n			AutoMapper.Mapper.CreateMap<LDSCORE.Domain.Model." + modelName + ", LDSCORE.WebAPI.ApiModel." + modelName + ">();\r\n";
+str += "			AutoMapper.Mapper.CreateMap<LDSCORE.WebAPI.ApiModel." + modelName + ", LDSCORE.Domain.Model." + modelName + ">();\r\n";
+RemoveDataFromFile(str, "WebAPI\\LDSCORE.WebAPI\\Mapping\\ModelMapper.cs", "// Add Configure Code Here //");
+#>
+
+<# str = "";
+str += "\r\n			case '" + modelName + "':\r\n";
+str += "				this.view = Ext.create('LDSCORE.view." + modelNameLower + ".List'); break;";
+RemoveDataFromFile(str, "Web\\"+Model.appoutput+"\\app\\view\\PageDetail.js", "// Add Page Detail //");
+#>
+
+
+<# str = "";
+str += "\r\n	,{\"iconCls\":\"icon_" + modelNameLower + "\",\"Id\":22,\"Title\":\"" + modelName + "\",\"Url\":\"" + modelName + "\",\"PageURL\":null}";
+        RemoveDataFromFile(str, "Web\\"+Model.appoutput+"\\app\\view\\data.json", "// Add Menu Json Data //");
+#>
+
+<# str = "";
+str += "\r\n		'" + modelName + "Controller',";
+RemoveDataFromFile(str, "Web\\"+Model.appoutput+"\\app.js", "// Add Controller Name //");
+#>
+    }
+}
+<#+ 
+
+private  void RemoveDataFromFile(string text, string fileName, string insertionPositionText)
+{
+	fileName=Model.FileLoc+"\\"+fileName;
+	if(File.Exists(fileName))
+    {
+	
+		string allText = File.ReadAllText(fileName);
+
+		if (allText.Contains(text))
+		{
+				allText = allText.Replace(text, "");
+				File.WriteAllText(fileName, allText);
+		}
+    }
+}
+
+ #>

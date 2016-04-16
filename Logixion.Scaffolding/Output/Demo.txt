@@ -1,0 +1,144 @@
+ 
+PK: System.__ComObject
+Namespace :LDSCORE.Scaffolding
+Full Namespace :LDSCORE.Domain.Model.Category
+Entity :Category
+--------------------------------------------------------------------------
+RelatedEntities: T4Scaffolding.Core.RelatedEntityLocators.RelatedEntityInfo[]
+PropertyName :Id
+Type :System.__ComObject
+IsBindableType :True
+ 
+IsDouble :False
+IsString :False
+IsBool :False
+Isint :True
+IsDateTime :False
+ 
+IsReadable :True
+HasIndexParameters :True
+ 
+FullName :LDSCORE.Domain.Model.Category.Id
+AsFullName :System.Int32
+MaxLenght :
+
+UIProperty :"TopNav"
+IsRequired :False
+ 
+GetValueExpression :False
+--------------------------------------------------------------------------
+RelatedEntities: T4Scaffolding.Core.RelatedEntityLocators.RelatedEntityInfo[]
+PropertyName :Email
+Type :System.__ComObject
+IsBindableType :True
+ 
+IsDouble :False
+IsString :True
+IsBool :False
+Isint :False
+IsDateTime :False
+ 
+IsReadable :True
+HasIndexParameters :True
+ 
+FullName :LDSCORE.Domain.Model.Category.Email
+AsFullName :System.String
+MaxLenght :
+
+UIProperty :"TopNav"
+IsRequired :False
+ 
+GetValueExpression :False
+--------------------------------------------------------------------------
+RelatedEntities: T4Scaffolding.Core.RelatedEntityLocators.RelatedEntityInfo[]
+PropertyName :Name
+Type :System.__ComObject
+IsBindableType :True
+ 
+IsDouble :False
+IsString :True
+IsBool :False
+Isint :False
+IsDateTime :False
+ 
+IsReadable :True
+HasIndexParameters :True
+ 
+FullName :LDSCORE.Domain.Model.Category.Name
+AsFullName :System.String
+MaxLenght :
+
+UIProperty :"TopNav"
+IsRequired :True
+ 
+GetValueExpression :False
+--------------------------------------------------------------------------
+RelatedEntities: T4Scaffolding.Core.RelatedEntityLocators.RelatedEntityInfo[]
+PropertyName :CD
+Type :System.__ComObject
+IsBindableType :False
+ 
+IsDouble :False
+IsString :False
+IsBool :False
+Isint :False
+IsDateTime :False
+ 
+IsReadable :True
+HasIndexParameters :True
+ 
+FullName :LDSCORE.Domain.Model.Category.CD
+AsFullName :LDSCORE.Domain.Model.CDDrug
+MaxLenght :
+
+UIProperty :"TopNav"
+IsRequired :False
+ 
+GetValueExpression :True
+--------------------------------------------------------------------------
+RelatedEntities: T4Scaffolding.Core.RelatedEntityLocators.RelatedEntityInfo[]
+PropertyName :IsVehicle
+Type :System.__ComObject
+IsBindableType :True
+ 
+IsDouble :False
+IsString :False
+IsBool :True
+Isint :False
+IsDateTime :True
+ 
+IsReadable :True
+HasIndexParameters :True
+ 
+FullName :LDSCORE.Domain.Model.Category.IsVehicle
+AsFullName :System.Boolean
+MaxLenght :
+
+UIProperty :"TopNav"
+IsRequired :False
+ 
+GetValueExpression :False
+--------------------------------------------------------------------------
+RelatedEntities: T4Scaffolding.Core.RelatedEntityLocators.RelatedEntityInfo[]
+PropertyName :DisplayName
+Type :System.__ComObject
+IsBindableType :True
+ 
+IsDouble :False
+IsString :True
+IsBool :False
+Isint :False
+IsDateTime :False
+ 
+IsReadable :True
+HasIndexParameters :True
+ 
+FullName :LDSCORE.Domain.Model.Category.DisplayName
+AsFullName :System.String
+MaxLenght :
+
+UIProperty :"TopNav"
+IsRequired :False
+ 
+GetValueExpression :False
+ 

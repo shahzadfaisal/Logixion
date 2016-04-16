@@ -1,0 +1,77 @@
+<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
+<#@ Output Extension="cs" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="EnvDTE" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Reflection" #>
+using System;
+using System.Linq;
+using System.Web;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+<#
+   var modelType = (CodeType)Model.ModelType; 
+   var modelName = modelType.Name; 
+   var properties = modelType.VisibleMembers().OfType<CodeProperty>();
+#>
+
+namespace <#= Model.Namespace #>.ApiModel
+{
+    /// <summary>
+    /// Add Summary
+    /// </summary>
+    public class <#= Model.EntityName #>
+    {
+<#  var type = "";
+	foreach (var property in properties) {
+	    type = GetType(property.Type);
+	  #>
+		public <#= type #> <#= property.Name #> { get; set; }
+<# } #>
+    }
+}
+<#+
+	string GetType(EnvDTE.CodeTypeRef type)
+    {                                                                                                                                             
+		string str = "";
+		if (type.UnderlyingTypeIs<byte>())
+			str = "byte";
+		else if (type.UnderlyingTypeIs<sbyte>())
+			str = "sbyte";
+		else if (type.UnderlyingTypeIs<int>())
+			str = "int";
+		else if (type.UnderlyingTypeIs<uint>())
+			str = "uint";
+		else if (type.UnderlyingTypeIs<short>())
+			str = "short";
+		else if (type.UnderlyingTypeIs<ushort>())
+			str = "ushort";
+		else if (type.UnderlyingTypeIs<DateTime>())
+			str = "DateTime";
+		else if (type.UnderlyingTypeIs<long>())
+			str = "long";
+		else if (type.UnderlyingTypeIs<ulong>())
+			str = "ulong";
+		else if (type.UnderlyingTypeIs<double>())
+			str = "double";
+		else if (type.UnderlyingTypeIs<bool>())
+			str = "bool";
+		else if (type.UnderlyingTypeIs<string>())
+			str = "string";
+		else if (type.UnderlyingTypeIs<decimal>())
+			str = "decimal";
+		else
+			str = type.AsFullName.ToString();
+
+		return str;
+    }
+#>

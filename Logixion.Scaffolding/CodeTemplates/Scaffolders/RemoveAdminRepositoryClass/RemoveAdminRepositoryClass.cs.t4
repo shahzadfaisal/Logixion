@@ -1,0 +1,176 @@
+<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
+<#@ Output Extension="cs" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="EnvDTE" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="EnvDTE80" #>
+
+<# 
+   var modelType = (CodeType)Model.ModelType; 
+   var modelName = modelType.Name; 
+   var modelNamePlural = Model.ModelTypePluralized;
+  
+   var modelNameLower = modelName.ToLower();
+   var properties = modelType.VisibleMembers().OfType<CodeProperty>();
+   var primaryKeyProperty = modelType.VisibleMembers().OfType<CodeProperty>().Single(x => x.Name == Model.PrimaryKey);
+
+#>
+
+<# string str = "";
+str += "\r\n		IDbSet<" + modelName + "> " + Model.ModelTypePluralized + " { get; set; }";
+RemoveDataFromFile(str, "Infrastructure\\LDSCORE.Infrastructure.Data\\Repositories\\IRepositoryContext.cs", "// Add IDbSet //");
+#>
+
+<# str = "";
+str += "\r\n		public IDbSet<Domain.Model." + modelName + "> " + Model.ModelTypePluralized + " { get; set; }";
+RemoveDataFromFile(str, "Infrastructure\\LDSCORE.Infrastructure.Data\\Repositories\\DefaultRepositoryContext.cs", "// Add IDbSet Below //");
+#>
+
+<# str = "";
+str += "Bind<I" + modelName + "Repository>().To<" + modelName + "Repository>();";
+RemoveDataFromFile(str, "Infrastructure\\LDSCORE.Infrastructure.DependecyResolution\\RepositoryModule.cs", "// Add Binding Here //");
+#>
+
+<# str = "";
+str += "\r\n	public class Fake" + modelName + "Set : FakeDbSet<" + modelName + ">\r\n";
+str += "	{\r\n";
+str += 	"		public override " + modelName + " Find(params object[] keyValues)\r\n";
+str += "		{\r\n";
+str += "			return this.SingleOrDefault(d => d." + primaryKeyProperty.Name + " == (int)keyValues.Single());\r\n";
+str += "		}\r\n";
+str += "	}";
+RemoveDataFromFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add FakeProductSet Code Here //");
+#>
+
+<# str = "";
+str += "\r\n			this." + modelNamePlural + " = new Fake" + modelName + "Set();";
+RemoveDataFromFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add Constructor Code Here //");
+#>
+
+<# str = "";
+str += "\r\n		public IDbSet<Domain.Model." + modelName + "> " + modelNamePlural + " { get; set; }";
+RemoveDataFromFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add IDbSet Code Here //");
+#>
+
+<# str = "";
+str += "\r\n			if (typeof(TEntity).Equals(typeof(" + modelName + ")))\r\n";
+str += "			{\r\n";
+str += "				return (IDbSet<TEntity>)this." + modelNamePlural + ";\r\n";
+str += "			}";
+RemoveDataFromFile(str, "ALM\\LDSCORE.ALM.Mocks\\Repositories\\FakeDBContext.cs", "// Add IDbSet TEntity Code Here //");
+#>
+
+<# str = "";
+str += "\r\n			AutoMapper.Mapper.CreateMap<LDSCORE.Domain.Model." + modelName + ", LDSCORE.WebAPI.ApiModel." + modelName + ">();\r\n";
+str += "			AutoMapper.Mapper.CreateMap<LDSCORE.WebAPI.ApiModel." + modelName + ", LDSCORE.Domain.Model." + modelName + ">();\r\n";
+RemoveDataFromFile(str, "WebAPI\\LDSCORE.WebAPI\\Mapping\\ModelMapper.cs", "// Add Configure Code Here //");
+#>
+
+<# str = "";
+str += "\r\n			case '" + modelName + "':\r\n";
+str += "				this.view = Ext.create('LDSCORE.view." + modelNameLower + ".List'); break;";
+RemoveDataFromFile(str, "Web\\"+Model.appoutput+"\\app\\view\\PageDetail.js", "// Add Page Detail //");
+#>
+
+<# str = "";
+str += "\r\n						{";
+str += "\r\n							xtype: 'button',";
+str += "\r\n							id: '" + modelName + "Id',";
+str += "\r\n							text: '" + modelName + "',";
+str += "\r\n						},";
+RemoveDataFromFile(str, "Web\\"+Model.appoutput+"\\app\\view\\Dashboard.js", "// Add Dashboard Entities Buttons //");
+#>
+
+<# str = "";
+str += "\r\n								'" + modelName + "',";
+RemoveDataFromFile(str, "Web\\"+Model.appoutput+"\\app\\view\\Dashboard.js", "// Add Dashboard Search Entities //");
+#>
+
+
+
+<# str = "";
+str += "\r\n									{";
+str += "\r\n										xtype: 'menucheckitem',";
+str += "\r\n										id: '" + modelName + "EntityId',";
+str += "\r\n										text: '" + modelName + "',";
+str += "\r\n									},";
+RemoveDataFromFile(str, "Web\\"+Model.appoutput+"\\app\\view\\Dashboard.js", "// Add Dashboard Menu Entities Buttons //");
+#>
+
+
+
+
+<# str = "";
+str += "\r\n						{";
+str += "\r\n                            xtype: 'panel',";
+str += "\r\n                            width: 400,";
+str += "\r\n                            title: '" + modelName + "',";
+str += "\r\n                            tabConfig: {";
+str += "\r\n                                xtype: 'tab',";
+str += "\r\n                                width: 200";
+str += "\r\n                            },";
+str += "\r\n                            items: [{";
+str += "\r\n                                xtype: '" + modelName + "DashboardEntityDetail'";
+str += "\r\n                            }]";
+str += "\r\n                        },";
+RemoveDataFromFile(str, "Web\\"+Model.appoutput+"\\app\\view\\SystemPreferences.js", "// Add System Preferences Entities //");
+#>
+
+
+
+
+
+<# str = "";
+str += "\r\n	,{\"iconCls\":\"icon_" + modelNameLower + "\",\"Id\":22,\"Title\":\"" + modelName + "\",\"Url\":\"" + modelName + "\",\"PageURL\":null}";
+if(IsTopNav(primaryKeyProperty))
+    {
+        RemoveDataFromFile(str, "Web\\"+Model.appoutput+"\\app\\view\\data.json", "// Add Menu Json Data //");
+    }
+#>
+
+<# str = "";
+str += "\r\n			'LDSCORE.controller." + modelName + "Controller',";
+RemoveDataFromFile(str, "Web\\"+Model.appoutput+"\\app.js", "// Add Controller Name //");
+#>
+    }
+}
+<#+ 
+
+private  void RemoveDataFromFile(string text, string fileName, string insertionPositionText)
+{
+	fileName=Model.FileLoc+"\\"+fileName;
+	if(File.Exists(fileName))
+    {
+	
+		string allText = File.ReadAllText(fileName);
+
+		if (allText.Contains(text))
+		{
+				allText = allText.Replace(text, "");
+				File.WriteAllText(fileName, allText);
+		}
+    }
+}
+
+    public bool IsTopNav(EnvDTE.CodeProperty propInfo){
+        var attributes = propInfo.Attributes.OfType<CodeAttribute2>();
+        if(attributes == null){ return false;}
+        var me = attributes.FirstOrDefault(x => x.Name == "UIHintAttribute");
+        if(me == null){ return false;}
+        if(me.Value == "\"TopNav\"") {
+            return true;
+        } 
+        return false;
+    }
+
+ #>

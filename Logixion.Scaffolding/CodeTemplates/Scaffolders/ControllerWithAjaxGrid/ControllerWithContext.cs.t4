@@ -1,0 +1,61 @@
+﻿<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="EnvDTE" #>
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using <#= Model.ModelTypeNamespace #>;
+
+namespace <#= Model.ControllerNamespace #>
+{   
+<# 
+   var modelType = (CodeType)Model.ModelType; 
+   var modelName = modelType.Name; 
+   var modelNamePlural = Model.ModelTypePluralized; 
+   var modelVariable = modelName.ToLower(); 
+#>
+    public class <#= Model.ControllerName #> : Controller
+    {
+        private <#= Model.DbContextType #> _context = new <#= Model.DbContextType #>();
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public JsonResult GridData(int rows, int page)
+        {
+            var count = _context.<#= modelNamePlural #>.Count();
+            var pageData = _context.<#= modelNamePlural #>.OrderBy(x => x.<#= Model.PrimaryKey #>).Skip((page - 1) * rows).Take(rows);
+            return Json(new { 
+                page = page,
+                records = count,
+                rows = pageData,
+                total = Math.Ceiling((decimal)count / rows)
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public void Create(<#= modelName #> <#= modelVariable #>)
+        {
+            _context.<#= modelNamePlural #>.Add(<#= modelVariable #>);
+            _context.SaveChanges();
+        }
+
+        public void Edit(<#= modelName #> <#= modelVariable #>)
+        {
+            _context.Entry(<#= modelVariable #>).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            _context.<#= modelNamePlural #>.Remove(_context.<#= modelNamePlural #>.Find(id));
+            _context.SaveChanges();
+        }
+    }
+}

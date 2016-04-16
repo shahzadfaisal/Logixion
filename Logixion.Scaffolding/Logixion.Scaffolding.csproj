@@ -48,61 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeTemplates\AddController\ApiController.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ApiController.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddController\ApiControllerWithContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ApiControllerWithContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddController\Controller.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Controller.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddController\ControllerWithContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ControllerWithContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\AspxCSharp\Create.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Create.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\AspxCSharp\Delete.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Delete.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\AspxCSharp\Details.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Details.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\AspxCSharp\Edit.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Edit.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\AspxCSharp\Empty.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Empty.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\AspxCSharp\List.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>List.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\OtherScripts\Template1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Template1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LDSCOREScaffoldingContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,118 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="CodeTemplates\AddController\ApiController.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ApiController.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddController\ApiControllerWithContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ApiControllerWithContext.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddController\Controller.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Controller.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddController\ControllerWithContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ControllerWithContext.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\AspxCSharp\Create.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Create.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\AspxCSharp\Delete.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Delete.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\AspxCSharp\Details.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Details.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\AspxCSharp\Edit.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Edit.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\AspxCSharp\Empty.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Empty.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\AspxCSharp\List.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>List.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\Create.cshtml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Create.tt</DependentUpon>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\Create.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Create.cshtml</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\Delete.cshtml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Delete.tt</DependentUpon>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\Delete.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Delete.cshtml</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\Details.cshtml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Details.tt</DependentUpon>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\Details.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Details.cshtml</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\Edit.cshtml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Edit.tt</DependentUpon>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\Edit.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Edit.cshtml</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\Empty.cshtml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Empty.tt</DependentUpon>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\Empty.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Empty.cshtml</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\List.cshtml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>List.tt</DependentUpon>
-    </None>
-    <None Include="CodeTemplates\AddView\CSHTML\List.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>List.cshtml</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\OtherScripts\Script1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Script1.txt</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\OtherScripts\Template1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Template1.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Scaffolders\AdminRepositoryClass\AdminRepositoryClass.ps1" />
-    <None Include="CodeTemplates\Scaffolders\AdminRepositoryClass\RepositoryInterfaceTemplate.cs.t4" />
-    <None Include="CodeTemplates\Scaffolders\AdminRepositoryClass\RepositoryTemplate.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\AppRepositoryClass\AppRepositoryClass.ps1" />
     <None Include="CodeTemplates\Scaffolders\AppRepositoryClass\RepositoryInterfaceTemplate.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\AppRepositoryClass\RepositoryTemplate.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithAjaxGrid\AjaxEditorView.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithAjaxGrid\ControllerWithAjaxGrid.ps1" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithAjaxGrid\ControllerWithContext.cs.t4" />
-    <None Include="CodeTemplates\Scaffolders\CoreAdmin\CoreAdmin.ps1" />
     <None Include="CodeTemplates\Scaffolders\CoreAll\CoreAll.ps1" />
     <None Include="CodeTemplates\Scaffolders\CoreApp\CoreApp.ps1" />
     <None Include="CodeTemplates\Scaffolders\CoreRemoveAdmin\CoreRemoveAdmin.ps1" />
@@ -251,11 +90,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CodeTemplates\AddView\OtherScripts\Script1.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Script1.tt</DependentUpon>
-    </Content>
     <Content Include="Output\Demo.txt" />
   </ItemGroup>
   <ItemGroup>

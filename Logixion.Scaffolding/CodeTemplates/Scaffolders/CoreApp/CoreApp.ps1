@@ -5,27 +5,23 @@ param(
 	[string]$CodeLanguage,
 	[string[]]$TemplateFolders,
 	[switch]$Force = $false,
-	[string]$appoutput,
-	[switch]$IsMongo = $false,
+	[string]$appoutput,	
 	[switch]$NoDBUpdate 
 
 )
-$appoutput = 'LDSCORE.Web.App'
+$appoutput = 'Logixion'
 
-Scaffold ExtWebApi -ModelType $ModelType -Force:$Force  -IsMongo:$IsMongo
+Scaffold CoreApp -ModelType $ModelType -Force:$Force  
 
-Scaffold AppRepositoryClass -ModelType $ModelType -Force:$Force -appoutput:$appoutput -IsMongo:$IsMongo
+Scaffold AppRepositoryClass -ModelType $ModelType -Force:$Force -appoutput:$appoutput  
 
-if(!$IsMongo)
+ Add-Migration $ModelType -ProjectName Logixion.Domain.Repositories -StartUpProjectName Logixion -Force
+
+if( $NoDBUpdate )
 {
-	Add-Migration $ModelType -ProjectName LDSCORE.Infrastructure.Data -StartUpProjectName LDSCORE.WebAPI -Force
-
-	if( $NoDBUpdate )
-	{
 	Write-Warning "Migrations is added. You need to run Update-database command"
-	}
-	else
-	{
-	Update-Database -StartUpProjectName LDSCORE.WebAPI -ProjectName LDSCORE.Infrastructure.Data
-	}
 }
+else
+{
+	Update-Database -StartUpProjectName Logixion -ProjectName Logixion.Domain.Repositories
+ 

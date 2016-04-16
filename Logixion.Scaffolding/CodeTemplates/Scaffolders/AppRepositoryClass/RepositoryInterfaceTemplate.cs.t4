@@ -1,16 +1,40 @@
 <#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="EnvDTE" #>
 <#@ Output Extension="cs" #>
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using LDSCORE.Domain.Model;
-
-
-namespace LDSCORE.Domain.Interfaces
+using System.Linq.Expressions;
+ 
+namespace Logixion.Domain.Interfaces
 {
-    public interface I<#= Model.EntityName #>Repository : IRepository<# if(Model.mongo == "true"){ #>Mongo<#}#><<#= Model.EntityName #>>
+   
+<# 
+   var modelType = (CodeType)Model.ModelType; 
+   var modelName = modelType.Name; 
+   var modelNamePlural = Model.ModelTypePluralized;
+   var  modelParam=modelName.Substring(0,1).ToLower()+modelName.Substring(1);
+   var modelNameLower = modelName.ToLower();
+   var properties = modelType.VisibleMembers().OfType<CodeProperty>();
+   var primaryKeyProperty = modelType.VisibleMembers().OfType<CodeProperty>().Single(x => x.Name == Model.PrimaryKey);
+   var primaryKeyParam=primaryKeyProperty.Substring(0,1).ToLower()+primaryKeyProperty.Substring(1);
+#>
+    public interface  I<#= modelName #>Repository
     {
+       
+          IQueryable<<#= modelName #>> Get<#= modelNamePlural #>();
+          IQueryable<<#= modelName #>> Get<#= modelNamePlural #> (params Expression<Func<<#= modelName #>, object>>[] includeProperties);         
+          <#= modelName #> Find (<#= primaryKeyProperty.Type.AsString #> <#= primaryKeyParam #>);       
+          void Add<#= modelName #> (<#= modelName #> <#= modelParam #>);
+		  void Update<#= modelName #> (<#= modelName #> <#= modelParam #>);
+          void Delete<#= modelName #> (<#= primaryKeyProperty.Type.AsString #> <#= primaryKeyParam #>);
+          void Save();
+          void Dispose() ;
         
     }
+
 }
